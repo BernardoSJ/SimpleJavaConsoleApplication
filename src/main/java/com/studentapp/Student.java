@@ -13,7 +13,7 @@ public class Student {
     private List<String> courses;
 
     public Student(String name, int age, String studentId) {
-        if(validateAge(age) && validateName(name)){
+        if(validateAge(age) && validateName(name) && validateStudentId(studentId)){
             this.name = name;
             this.age = age;
             this.studentId = studentId;
@@ -22,8 +22,12 @@ public class Student {
     }
 
     public void enrollCourse(String course){
-        courses.add(course);
-        System.out.println("Student is enrolled to " + course + " successfully");
+        if(!courses.contains(course) && validateCourseName(course)){
+            courses.add(course);
+            System.out.println("Student is enrolled to " + course + " successfully");
+        }else{
+            System.err.println("Student is already enrolled to the course " + course);
+        }
     }
 
     public void printStudentInfo() {
@@ -62,6 +66,25 @@ public class Student {
             return true;
         }
         System.err.println("Invalid Name!!! Please enter alphabets only");
+        return false;
+    }
+
+    public boolean validateStudentId(String studentId){
+        String studentIdRegex = "S-\\d+$";
+        Pattern studentIdPattern = Pattern.compile(studentIdRegex);
+        Matcher studentIdMatrcher = studentIdPattern.matcher(studentId);
+        if(studentIdMatrcher.matches()){
+            return true;
+        }
+        System.err.println("Invalid Student Id.... Use the format Eg... S-1232");
+        return false;
+    }
+
+    public boolean validateCourseName(String course){
+        if(course.equalsIgnoreCase("Java") || course.equalsIgnoreCase("DSA") || course.equalsIgnoreCase("Devops")){
+            return true;
+        }
+        System.err.println("Invalid Course Name!!! Please select Courses from the List!! [Java, DSA, DevOps]");
         return false;
     }
 
