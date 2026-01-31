@@ -22,12 +22,15 @@ public class Student {
     }
 
     public void enrollCourse(String course){
-        if(!courses.contains(course) && validateCourseName(course)){
-            courses.add(course);
-            System.out.println("Student is enrolled to " + course + " successfully");
-        }else{
-            System.err.println("Student is already enrolled to the course " + course);
+        if(validateCourseName(course)) {
+            if(!courses.contains(course)){
+                courses.add(course);
+                System.out.println("Student is enrolled to " + course + " successfully");
+            }else{
+                System.err.println("Student is already enrolled to the course " + course);
+            }
         }
+
     }
 
     public void printStudentInfo() {
@@ -88,4 +91,19 @@ public class Student {
         return false;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public List<String> getCourses() {
+        return courses;
+    }
 }
